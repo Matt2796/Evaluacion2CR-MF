@@ -1,7 +1,7 @@
 <%-- 
-    Document   : Login
-    Created on : 27-06-2020, 3:38:18
-    Author     : Criss
+    Document   : index.jsp
+    Created on : 11-07-2020, 3:38:18
+    Author     : Matias Faundez - Cristian Riffo 
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
