@@ -9,6 +9,6 @@ package modelos;
  *
  * @author mfaun
  */
-public class Estadio {
+public class Equipo {
     
 }
