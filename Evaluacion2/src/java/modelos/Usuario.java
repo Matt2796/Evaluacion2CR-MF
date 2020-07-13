@@ -10,12 +10,12 @@ package modelos;
  * @author mfaun
  */
 public class Usuario {
-    private int id;
+    private String id;
     private String nombre;
     private String apellido;
     private String password;
 
-    public Usuario(int id, String nombre, String apellido, String password) {
+    public Usuario(String id, String nombre, String apellido, String password) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -26,7 +26,7 @@ public class Usuario {
         
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -42,7 +42,7 @@ public class Usuario {
         this.password = password;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
