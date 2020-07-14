@@ -47,7 +47,7 @@
                 <td><%= j.getId() %></td>
                 <td><%= j.getNombre() %></td>
                 <td><%= j.getApellido() %></td>
-                <td></td>
+                <td><%= jd.obtenerEdad(j.getFecha_nacimiento()) %></td>
                 <td><%= j.getSueldo() %></td>
                 <td><
                 <td><a href="modificaJugador.jsp?id=<%= j.getId() %>">
