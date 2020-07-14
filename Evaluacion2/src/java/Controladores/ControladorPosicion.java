@@ -37,15 +37,15 @@ public class ControladorPosicion extends HttpServlet {
         if(request.getParameter("accion")!=null){
         String accion = request.getParameter("accion");
         switch(accion){
-            case "1": registrar(request,response);
+            case "2": registrar(request,response);
                 break;
-            case "2": modificar(request,response);
+            case "3": modificar(request,response);
             break;
-            case "3": eliminar(request,response);
+            case "4": eliminar(request,response);
             break;
         }
          }else{
-             response.sendRedirect("delposicion.jsp?msj=Opcion no valida");
+             response.sendRedirect("posiciones.jsp?msj=Opcion no valida");
          }
     }
 

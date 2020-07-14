@@ -40,9 +40,9 @@ public class ControladorUsuario extends HttpServlet {
         if(request.getParameter("accion")!=null){
         String accion = request.getParameter("accion");
         switch(accion){
-            case "1": iniciarSesion(request,response);
+            case "2": iniciarSesion(request,response);
                 break;
-            case "2": registrar(request,response);
+            case "3": registrar(request,response);
                 break;
             default: response.sendRedirect("index.jsp?msj=Opcion no valida");
         }

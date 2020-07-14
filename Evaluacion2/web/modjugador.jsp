@@ -71,7 +71,7 @@
                     <td><input type="text" name="apellido" value="<%= j.getApellido() %>"</td>
                 </tr>
                 <tr>
-                    <td>Fecha de nacimientp</td>
+                    <td>Fecha de nacimiento</td>
                     <td><input type="date" name="fecha_nacimiento" value="<%= j.getFecha_nacimiento() %>"/></td>
                 </tr><tr>
                     <td>Posicion</td>
