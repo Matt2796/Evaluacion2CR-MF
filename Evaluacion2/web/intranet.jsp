@@ -3,7 +3,6 @@
     Created on : 13/07/2020, 09:52:51 PM
     Author     : mfaun
 --%>
-<%@page import="java.lang.System.out"%>
 <%@page import="modelos.Jugador"%>
 <%@page import="dao.JugadorDAO"%>
 <%@page import="dao.UsuarioDAO"%>
@@ -19,7 +18,7 @@
     </head>
     <body>
     <center>
-        <h1>Bienvenido
+        <h1>Bienvenido</h1>
             <% if(session.getAttribute("usuario")!= null){
              Usuario u = (Usuario) session.getAttribute("usuario");
             %>
@@ -28,12 +27,7 @@
         </h1>
         <a href="Salir"><input type="button" value="Cerrar Sesion"/></a>
             
-        </table>
-            <input type="hidden" name="accion" value=""/>
-        </form>
-        <% if(request.getParameter("msj")!= null){%>
-        <h3><%= request.getParameter("msj") %></h3>
-        <%}%>
+  
         <h3>Jugadores Registrados</h3>
         <table border="1" style="border-collapse: collapse;">
             <tr>
@@ -53,7 +47,7 @@
                 <td><%= j.getId() %></td>
                 <td><%= j.getNombre() %></td>
                 <td><%= j.getApellido() %></td>
-                <td><%= out.print("edad") %></td>
+                <td></td>
                 <td><%= j.getSueldo() %></td>
                 <td><
                 <td><a href="modificaJugador.jsp?id=<%= j.getId() %>">
@@ -69,38 +63,5 @@
                 </table>
             <input type="hidden" name="accion" value=""/>
         </form>
-        <% if(request.getParameter("msj")!= null){%>
-        <h3><%= request.getParameter("msj") %></h3>
-        <%}%>
-        <h3>Jugadores Registrados</h3>
-        <table border="1" style="border-collapse: collapse;">
-            <tr>
-                <td>ID</td>
-                <td>Nombre</td>
-                <td>Apellido</td>
-                <td>Modificar</td>
-                <td>Eliminar</td>
-            </tr>
-            <%  JugadorDAO jd = new JugadorDAO();
-                ArrayList<Jugador> jugador = jd.obtenerJugadores();
-            for(Jugador j:jugador){
-            %>
-            <tr>
-                <td><%= j.getId() %></td>
-                <td><%= j.getNombre() %></td>
-                <td><%= j.getApellido() %></td>
-                <td><a href="modificaJugador.jsp?id=<%= j.getId() %>">
-                        <input type="button" value="Modificar"/>
-                    </a>
-                </td>
-                <td><a href="eliminarJugador.jsp?id=<%= j.getId() %>">
-                        <input type="button" value="Eliminar"/>
-                    </a></td>
-            </tr>
-            <% } %>
-        </table>
-        <% if(request.getParameter("msj")!= null){%>
-        <h4><%= request.getParameter("msj") %></h4>
-        <%}%>
-      </center>
+ </center>
 </html>
