@@ -4,6 +4,9 @@
     Author     : mfaun
 --%>
 
+<%@page import="modelos.Ciudad"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="dao.CiudadDAO"%>
 <%@page import="modelos.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -45,6 +48,33 @@
             <menuitem >Ciudades</menuitem>
             </a>
         </menu>   
+                    <h3>Ciudades registradas</h3>
+        <table border="1" style="border-collapse: collapse;">
+            <tr>
+                <td>ID</td>
+                <td>Nombre</td>
+            </tr>
+            <%  CiudadDAO cd = new CiudadDAO();
+                ArrayList<Ciudad> ciudad = cd.obtenerCiudades();
+            for(Ciudad c:ciudad){
+            %>
+            <tr>
+                <td><%= c.getId() %></td>
+                <td><%= c.getNombre() %></td>
+                <td><a href="modificaJugador.jsp?id=<%= c.getId() %>">
+                        <input type="button" value="Modificar"/>
+                    </a>
+                </td>
+                <td><a href="eliminarJugador.jsp?id=<%= c.getId() %>">
+                        <input type="button" value="Eliminar"/>
+                    </a></td>
+            </tr>
+            <% } %>
+        </table>
+             
+        <% if(request.getParameter("msj")!= null){%>
+        <h3><%= request.getParameter("msj") %></h3>
+        <%}%>
 
             </center>
     </body>

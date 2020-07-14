@@ -9,8 +9,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import modelos.Jugador;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -122,6 +124,28 @@ public class JugadorDAO extends Conexion {
         }finally{
             desconectar();
         }
+    }
+    
+    public int obtenerEdad(Date Fecha){
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(Fecha);
+        int year = cal.get(Calendar.YEAR);
+        int mes = cal.get(Calendar.MONTH);
+        int dia = cal.get(Calendar.DATE);
+        
+        Calendar c = Calendar.getInstance();
+	   
+        int diaActual = c.get(Calendar.DATE);
+        int mesActual = c.get(Calendar.MONTH);
+        int yearActual = c.get(Calendar.YEAR);
+
+        int edad = yearActual-year;
+        
+        if(mes>mesActual){
+            edad = edad-1;
+        }
+        return edad;
     }
                 
 }

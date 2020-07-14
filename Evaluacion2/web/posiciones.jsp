@@ -4,6 +4,9 @@
     Author     : mfaun
 --%>
 
+<%@page import="modelos.Posicion"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="dao.PosicionDAO"%>
 <%@page import="modelos.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -46,6 +49,33 @@
             </a>
         </menu>
         
+        <h3>Posiciones registradas</h3>
+        <table border="1" style="border-collapse: collapse;">
+            <tr>
+                <td>ID</td>
+                <td>Nombre</td>
+            </tr>
+            <%  PosicionDAO pd = new PosicionDAO();
+                ArrayList<Posicion> posicion = pd.obtenerPosiciones();
+            for(Posicion p:posicion){
+            %>
+            <tr>
+                <td><%= p.getId() %></td>
+                <td><%= p.getNombre() %></td>
+                <td><a href="modificaJugador.jsp?id=<%= p.getId() %>">
+                        <input type="button" value="Modificar"/>
+                    </a>
+                </td>
+                <td><a href="eliminarJugador.jsp?id=<%= p.getId() %>">
+                        <input type="button" value="Eliminar"/>
+                    </a></td>
+            </tr>
+            <% } %>
+        </table>
+             
+        <% if(request.getParameter("msj")!= null){%>
+        <h3><%= request.getParameter("msj") %></h3>
+        <%}%>
 
             </center>
     </body>

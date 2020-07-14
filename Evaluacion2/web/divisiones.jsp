@@ -4,6 +4,9 @@
     Author     : mfaun
 --%>
 
+<%@page import="modelos.Division"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="dao.DivisionDAO"%>
 <%@page import="modelos.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -45,6 +48,33 @@
             <menuitem >Ciudades</menuitem>
             </a>
         </menu>
+       <h3>Divisiones registradas</h3>
+        <table border="1" style="border-collapse: collapse;">
+            <tr>
+                <td>ID</td>
+                <td>Nombre</td>
+            </tr>
+            <%  DivisionDAO dd = new DivisionDAO();
+                ArrayList<Division> division = dd.obtenerDivisiones();
+            for(Division d:division){
+            %>
+            <tr>
+                <td><%= d.getId() %></td>
+                <td><%= d.getNombre() %></td>
+                <td><a href="modificaJugador.jsp?id=<%= d.getId() %>">
+                        <input type="button" value="Modificar"/>
+                    </a>
+                </td>
+                <td><a href="eliminarJugador.jsp?id=<%= d.getId() %>">
+                        <input type="button" value="Eliminar"/>
+                    </a></td>
+            </tr>
+            <% } %>
+        </table>
+             
+        <% if(request.getParameter("msj")!= null){%>
+        <h3><%= request.getParameter("msj") %></h3>
+        <%}%>
 
             </center>
     </body>
