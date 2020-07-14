@@ -69,7 +69,7 @@ public class CiudadDAO extends Conexion {
             }else{
                 return null;
             }
-        }catch(Exception e ){
+        }catch(Exception e){
             return null;
         }finally{
             desconectar();
