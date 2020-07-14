@@ -14,7 +14,7 @@
     <body>
     <center>
         <h1>Registro de Usuarios</h1>
-        <form action="ControladorUsuario" method="post">
+        <form action="UsuarioControlador" method="post">
             <table>
             <tr>
                <td>ID</td>

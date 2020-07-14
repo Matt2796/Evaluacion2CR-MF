@@ -14,7 +14,7 @@
     <body>
         <center>
                     <h1>Inicio de Sesion</h1>
-        <form action="ControladorUsuario" method="post">
+        <form action="UsuarioControlador" method="post">
         <table>
             <tr>
                 <td>Id</td>
@@ -22,7 +22,7 @@
             </tr>
             <tr>
                 <td>Password</td>
-                <td><input type="password" name="passwoed"/></td>
+                <td><input type="password" name="password"/></td>
             </tr>
             <tr>
                 <td><input type="submit" value="Iniciar Sesion"/></td>
