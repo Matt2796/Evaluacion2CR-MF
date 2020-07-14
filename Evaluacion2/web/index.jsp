@@ -65,7 +65,9 @@ if(registro == null){
             <p><a href="index.jsp">Iniciar Sesion</a></p>
         </div>
         
+        
         <%}
+        
         String msg = request.getParameter("msg");
         if(msg!=null){%>
             <script>
@@ -73,7 +75,7 @@ if(registro == null){
         </script>
         <%}
         %>
-        
+        <a href="panelEstadios.jsp">Test</a>
     </center>
     </body>
 </html>

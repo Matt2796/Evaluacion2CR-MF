@@ -9,11 +9,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Panel de Equipos</title>
+        <title>Panel Equipos</title>
         
         <style>
             body{margin:0 auto; justify-content: center; display: flex;}
-            
             #ContainerPanel{
                 width: 100%;
                 height: 80px;
@@ -24,74 +23,54 @@
                 padding-left: 20px;
                 padding-right: 20px;
             }
-            
-            #ContainerEquipo{
-                margin-top: 85px;
-                max-width: 1600px;
-                height: 100%;    
+            #detalles{line-height: 80px; float: left; margin-left: 20px }
+            #customers {
+                border-collapse: collapse;
+                width: 95%;
+                position: fixed;
+                margin-top: 140px;
             }
-            
-            #equipos{
-                border-style: solid;
-                border-radius: 5px;
-                border-width: 2px;
-                border-color: gray;
-                width: 380px;
-                height: 220px;
-                margin-left: 15px;
-                margin-top: 15px;
-                float: left;
+            #customers td, #customers th {
+              border: 1px solid #ddd;
+              padding: 8px;
             }
-            
-            .Boton{
-                padding:10px;
-                border-style: solid;
-                border-width: 2px;
-                border-radius: 5px;
-                margin-top: 17px;
-                float: right;
-                margin-right: 15px;
+            #customers tr:hover {background-color: #ddd;}
+            #customers th {
+              padding-top: 12px;
+              padding-bottom: 12px;
+              text-align: left;
+              background-color: black;
+              color: white;
             }
-            
-            span{line-height: 80px; margin-left: 20px }
-            .options{margin-right: 20px; float: right;}
         </style>
     </head>
     <body>
+        
         <nav id="ContainerPanel">
-            <span>Iniciar Sesion</span>
-            <div class="Boton">Agregar Jugadores</div>
-            <div class="Boton">Agregar Equipo</div>
+            <h1 style='text-align:center'>Listado de estadios</h1>
+            <a href="index.jsp" style="text-decoration: none; color:white"><div style='position:fixed; z-index: 2; margin-top: 20px; right: 20px; background-color: black;color: white;padding:10px'>Cerrar Sesion</div></a>
         </nav>
-    <center>
-        <div id="ContainerEquipo">
-            <div id="equipos">
-                <p>Nombre Equipo</p>
-                <p>Nombre Equipo</p>
-                <p>Nombre Equipo</p>
-            </div>
-            <div id="equipos"></div>
-            <div id="equipos"></div>
-            <div id="equipos"></div>
-            <div id="equipos"></div>
-            <div id="equipos"></div>
-            <div id="equipos"></div>
-            <div id="equipos"></div>
-            <div id="equipos"></div>
-            <div id="equipos"></div>
-            <div id="equipos"></div>
-            <div id="equipos"></div>
-            <div id="equipos"></div>
-            <div id="equipos"></div>
-            <div id="equipos"></div>
-            <div id="equipos"></div>
-            <div id="equipos"></div>
-            <div id="equipos"></div>
-            <div id="equipos"></div>
-            <div id="equipos"></div>
-            <div id="equipos"></div>
-            <div id="equipos"></div>
-        </div>
-    </center>
+        
+        <table id="customers">
+            <tr>
+              <th>Codigo</th>
+              <th>Nombre</th>
+              <th>Division</th>
+              <th>Cant. Jugadores</th>
+            </tr>
+            
+            <tr onclick='jugador(1200)'>
+              <td>00001</td>
+              <td>Barcelona</td>
+              <td>Primera</td>
+              <td>20</td>
+            </tr>
+        </table>
+        
+        <script>
+            function jugador(num){
+                window.location.href = "panelEquipos.jsp";
+            }
+        </script>
     </body>
 </html>

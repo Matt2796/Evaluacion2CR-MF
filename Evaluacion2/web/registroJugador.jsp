@@ -1,7 +1,7 @@
 <%-- 
     Document   : registroJugador
     Created on : 13-07-2020, 18:25:29
-    Author     : Criss
+    Author     : Matias Faundez - Cristian Riffo
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
