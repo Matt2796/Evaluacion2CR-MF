@@ -136,34 +136,6 @@ public class JugadorDAO extends Conexion {
         }
     }
     
-        public ArrayList<Jugador> obtenerJugadoresPorEquipo(Jugador j) throws SQLException{
-        try{
-            String sentencia = "select * from jugador where id_equipo = ?";
-            conectar();
-            PreparedStatement ps = obtenerPS(sentencia);
-            ps.setInt(1, j.getEquipo().getId());
-            ResultSet rs = ps.executeQuery();
-            ArrayList<Jugador> lista = new ArrayList();
-            Jugador j1 = null;
-            PosicionDAO pd = new PosicionDAO();
-            EquipoDAO eqd = new EquipoDAO();    
-            while(rs.next()){
-                lista.add(new Jugador(rs.getInt("id"),
-                        rs.getString("nombre"),
-                        rs.getString("apellido"),
-                        rs.getDate(""),
-                        pd.obtenerPosicion(rs.getInt("id")),
-                        rs.getInt("sueldo"),
-                        eqd.obtenerEquipo(rs.getInt("id"))));
-            }
-            return lista;
-        }catch(Exception e){
-            return new ArrayList();
-        }finally{
-            desconectar();
-        }
-    }
-    
     public int obtenerEdad(Date Fecha){
 
         Calendar cal = Calendar.getInstance();
