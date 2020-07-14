@@ -22,6 +22,10 @@ public class Usuario {
         this.password = password;
     }
     
+    public Usuario(String id, String password) {
+     this.id = id;
+     this.password = password;
+    }
     public Usuario(){
         
     }
