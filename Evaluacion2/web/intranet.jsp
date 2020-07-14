@@ -3,11 +3,13 @@
     Created on : 13/07/2020, 09:52:51 PM
     Author     : mfaun
 --%>
+<%@page import="java.lang.System.out"%>
+<%@page import="modelos.Jugador"%>
+<%@page import="dao.JugadorDAO"%>
 <%@page import="dao.UsuarioDAO"%>
 <%@page import="util.UsuarioUtil"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="modelos.Usuario"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -25,68 +27,73 @@
         <%}else{response.sendRedirect("index.jsp?msj=acceso denegado");}%>
         </h1>
         <a href="Salir"><input type="button" value="Cerrar Sesion"/></a>
-        <menu >
-            <a href="crudProductos.jsp">
-            <menuitem >Productos</menuitem>
-            </a>
-        </menu>
-        <h1>Registro de Usuarios</h1>
-        <form action="ControladorUsuario" method="post">
-            <table>
-            <tr>
-               <td>ID</td>
-                <td><input type="text" name="id"/></td>
-            </tr>
-            <tr>
-                <td>Nombre</td>
-                <td><input type="text" name="nombre"/></td>
-            </tr>
-            <tr>
-                <td>Apellido</td>
-                <td><input type="text" name="apellido"/></td>
-            </tr>
-            <tr>
-                <td>Password</td>
-                <td><input type="password" name="password"/></td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="Registrar"/></td>
-                <td><a href="index.jsp">
-                    <input type="button" value="Volver"/>
-                    </a>
-                </td>
-            </tr>
             
         </table>
-            <input type="hidden" name="accion" value="2"/>
+            <input type="hidden" name="accion" value=""/>
         </form>
         <% if(request.getParameter("msj")!= null){%>
         <h3><%= request.getParameter("msj") %></h3>
         <%}%>
-        <h3>Usuarios Registrados</h3>
+        <h3>Jugadores Registrados</h3>
         <table border="1" style="border-collapse: collapse;">
             <tr>
                 <td>ID</td>
                 <td>Nombre</td>
                 <td>Apellido</td>
-                <td>Password</td>
-                <td>Modificar</td>
-                <td>Eliminar</td>
+                <td>Edad</td>
+                <td>Posicion</td>
+                <td>Sueldo</td>
+                <td>Equipo</td>
             </tr>
-            <%  UsuarioDAO ud = new UsuarioDAO();
-                ArrayList<Usuario> usuarios = ud.obtenerUsuarios(); 
-            for(Usuario u:usuarios){
+            <%  JugadorDAO jd = new JugadorDAO();
+                ArrayList<Jugador> jugador = jd.obtenerJugadores();
+            for(Jugador j:jugador){
             %>
             <tr>
-                <td><%= u.getId() %></td>
-                <td><%= u.getNombre() %></td>
-                <td><%= u.getApellido() %></td>
-                <td><%= UsuarioUtil.createPassword() %></td>
-                <td><a href="modificaUsuario.jsp?id=<%= u.getId() %>">
+                <td><%= j.getId() %></td>
+                <td><%= j.getNombre() %></td>
+                <td><%= j.getApellido() %></td>
+                <td><%= out.print("edad") %></td>
+                <td><%= j.getSueldo() %></td>
+                <td><
+                <td><a href="modificaJugador.jsp?id=<%= j.getId() %>">
                         <input type="button" value="Modificar"/>
                     </a>
                 </td>
-                <td><a href="eliminarUsuario.jsp?id=<%= u.getId() %>">
+                <td><a href="eliminarJugador.jsp?id=<%= j.getId() %>">
+                        <input type="button" value="Eliminar"/>
+                    </a></td>
+            </tr>
+            <% } %>
+        </table>
+                </table>
+            <input type="hidden" name="accion" value=""/>
+        </form>
+        <% if(request.getParameter("msj")!= null){%>
+        <h3><%= request.getParameter("msj") %></h3>
+        <%}%>
+        <h3>Jugadores Registrados</h3>
+        <table border="1" style="border-collapse: collapse;">
+            <tr>
+                <td>ID</td>
+                <td>Nombre</td>
+                <td>Apellido</td>
+                <td>Modificar</td>
+                <td>Eliminar</td>
+            </tr>
+            <%  JugadorDAO jd = new JugadorDAO();
+                ArrayList<Jugador> jugador = jd.obtenerJugadores();
+            for(Jugador j:jugador){
+            %>
+            <tr>
+                <td><%= j.getId() %></td>
+                <td><%= j.getNombre() %></td>
+                <td><%= j.getApellido() %></td>
+                <td><a href="modificaJugador.jsp?id=<%= j.getId() %>">
+                        <input type="button" value="Modificar"/>
+                    </a>
+                </td>
+                <td><a href="eliminarJugador.jsp?id=<%= j.getId() %>">
                         <input type="button" value="Eliminar"/>
                     </a></td>
             </tr>

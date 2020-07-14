@@ -101,4 +101,19 @@ public class EstadioDAO extends Conexion {
         }
     }
     
+            public boolean existeEstadio(Estadio estadio) throws SQLException{
+        try{
+            String sentencia = "select * from estadio where id = ?";
+            conectar();
+            PreparedStatement ps = obtenerPS(sentencia);
+            ps.setInt(1, estadio.getId());
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        }catch(Exception e){
+            return false;
+        }finally{
+            desconectar();
+        }
+    }
+    
 }

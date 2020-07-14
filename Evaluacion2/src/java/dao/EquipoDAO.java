@@ -114,4 +114,18 @@ public class EquipoDAO extends Conexion {
             desconectar();
         }
     } 
+        public boolean existeEquipo(Equipo equipo) throws SQLException{
+        try{
+            String sentencia = "select * from equipo where id = ?";
+            conectar();
+            PreparedStatement ps = obtenerPS(sentencia);
+            ps.setInt(1, equipo.getId());
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        }catch(Exception e){
+            return false;
+        }finally{
+            desconectar();
+        }
+    }
 }
