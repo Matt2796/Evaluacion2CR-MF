@@ -11,9 +11,9 @@ package modelos;
  */
 public class Division {
     private int id;
-    private int nombre;
+    private String nombre;
 
-    public Division(int id, int nombre) {
+    public Division(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
@@ -24,7 +24,7 @@ public class Division {
         this.id = id;
     }
 
-    public void setNombre(int nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
@@ -32,7 +32,7 @@ public class Division {
         return id;
     }
 
-    public int getNombre() {
+    public String getNombre() {
         return nombre;
     }
 }
