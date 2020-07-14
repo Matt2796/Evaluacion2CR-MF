@@ -14,6 +14,7 @@ import java.util.Calendar;
 import modelos.Jugador;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import modelos.Posicion;
 
 /**
  *
@@ -156,6 +157,21 @@ public class JugadorDAO extends Conexion {
             edad = edad-1;
         }
         return edad;
+    }
+    
+    public boolean existePosicion(Posicion posicion) throws SQLException{
+        try{
+            String sentencia = "select * from Jugador where id_posicion = ?";
+            conectar();
+            PreparedStatement ps = obtenerPS(sentencia);
+            ps.setInt(1, posicion.getId());
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        }catch(Exception e){
+            return false;
+        }finally{
+            desconectar();
+        }
     }
                 
 }

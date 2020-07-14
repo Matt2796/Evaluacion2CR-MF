@@ -44,10 +44,10 @@ public class ControladorUsuario extends HttpServlet {
                 break;
             case "2": registrar(request,response);
                 break;
-            default: response.sendRedirect("index.jsp?msj=No te pases");
+            default: response.sendRedirect("index.jsp?msj=Opcion no valida");
         }
         }else{
-            response.sendRedirect("index.jsp?msj=No te pases");
+            response.sendRedirect("index.jsp?msj=Opcion no valida");
         }
     }
     private void iniciarSesion(HttpServletRequest request, HttpServletResponse response) throws IOException{
