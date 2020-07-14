@@ -8,6 +8,7 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import static java.time.Clock.system;
 import java.util.ArrayList;
 import java.util.Calendar;
 import modelos.Jugador;
@@ -19,14 +20,19 @@ import java.util.GregorianCalendar;
  * @author mfaun
  */
 public class JugadorDAO extends Conexion {
-            public int registrarJugador(Jugador j) throws ClassNotFoundException, SQLException{
+        public int registrarJugador(Jugador j) throws ClassNotFoundException, SQLException{
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(j.getFecha_nacimiento());
+        java.sql.Date sqlDate = new java.sql.Date(j.getFecha_nacimiento().getTime());        
+                
+                
         String sentencia = "insert into jugador (nombre,apellido,fecha_nacimiento,id_posicion,sueldo,id_equipo) values (?,?,?,?,?,?)";
         try{
         conectar();
         PreparedStatement ps= obtenerPS(sentencia);
         ps.setString(1, j.getNombre());
         ps.setString(2, j.getApellido());
-        // ERROR AQUI -> ps.setDate(3, j.getFecha_nacimiento()); 
+        ps.setDate(3, sqlDate); 
         ps.setInt(4, j.getPosicion().getId());
         ps.setInt(5, j.getSueldo());
         ps.setInt(6, j.getPosicion().getId());
@@ -39,6 +45,10 @@ public class JugadorDAO extends Conexion {
         }
     }
     public int modificar(Jugador j) throws SQLException{
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(j.getFecha_nacimiento());
+        java.sql.Date sqlDate = new java.sql.Date(j.getFecha_nacimiento().getTime());
+      
         try{
             String sentencia ="update jugador set nombre = ?, apellido = ? , "
                     + "fecha_nacimiento = ?, id_posicion = ?, sueldo = ?, id_equipo = ?  where id = ?";
@@ -46,7 +56,7 @@ public class JugadorDAO extends Conexion {
             PreparedStatement ps = obtenerPS(sentencia);
             ps.setString(1, j.getNombre());
             ps.setString(2, j.getApellido());
-        // ERROR AQUI -> ps.setDate(3, j.getFecha_nacimiento()); 
+            ps.setDate(3, sqlDate); 
             ps.setInt(4, j.getPosicion().getId());
             ps.setInt(5, j.getSueldo());
             ps.setInt(6, j.getEquipo().getId());
@@ -86,7 +96,7 @@ public class JugadorDAO extends Conexion {
                 j = new Jugador(rs.getInt("id"),
                         rs.getString("nombre"),
                         rs.getString("apellido"),
-                        rs.getDate(""),
+                        rs.getDate("fecha_nacimiento"),
                         pd.obtenerPosicion(rs.getInt("id")),
                         rs.getInt("sueldo"),
                         eqd.obtenerEquipo(rs.getInt("id")));
@@ -113,7 +123,7 @@ public class JugadorDAO extends Conexion {
                 lista.add(new Jugador(rs.getInt("id"),
                         rs.getString("nombre"),
                         rs.getString("apellido"),
-                        rs.getDate(""),
+                        rs.getDate("fecha_nacimiento"),
                         pd.obtenerPosicion(rs.getInt("id")),
                         rs.getInt("sueldo"),
                         eqd.obtenerEquipo(rs.getInt("id"))));
