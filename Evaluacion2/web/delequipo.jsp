@@ -57,7 +57,7 @@
                         <% if(request.getParameter("id")!=null){
             Equipo eq = new EquipoDAO().obtenerEquipo(Integer.parseInt(request.getParameter("id")));
             %>
-        <form action="ControladorEstadio" method="post">
+        <form action="ControladorEquipo" method="post">
             <table>
                 <tr>
                     <td>Id</td>
