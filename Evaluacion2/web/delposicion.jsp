@@ -1,23 +1,22 @@
 <%-- 
-    Document   : divisiones
-    Created on : 14/07/2020, 08:45:47 AM
+    Document   : delposicion
+    Created on : 14/07/2020, 12:40:46 PM
     Author     : mfaun
 --%>
 
-<%@page import="modelos.Division"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="dao.DivisionDAO"%>
 <%@page import="modelos.Usuario"%>
+<%@page import="dao.PosicionDAO"%>
+<%@page import="modelos.Posicion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Divisiones registradas</title>
+        <title>Eliminar posicion/title>
     </head>
     <body>
-    <center>
-        <h1>Divisiones</h1>
+            <center>
+        <h1>Eliminar posicion</h1>
             <% if(session.getAttribute("usuario")!= null){
              Usuario u = (Usuario) session.getAttribute("usuario");
             %>
@@ -28,7 +27,7 @@
         <menu>
             <a href="intranet.jsp">
             <menuitem >Inicio</menuitem>
-            </a> | 
+            </a> |
             <a href="jugadores.jsp">
             <menuitem >Jugadores</menuitem>
             </a> | 
@@ -48,34 +47,29 @@
             <menuitem >Ciudades</menuitem>
             </a>
         </menu>
-       <h3>Divisiones registradas</h3>
-        <table border="1" style="border-collapse: collapse;">
-            <tr>
-                <td>ID</td>
-                <td>Nombre</td>
-            </tr>
-            <%  DivisionDAO dd = new DivisionDAO();
-                ArrayList<Division> division = dd.obtenerDivisiones();
-            for(Division d:division){
+                        <% if(request.getParameter("id")!=null){
+            Posicion p = new PosicionDAO().obtenerPosicion(Integer.parseInt(request.getParameter("id")));
             %>
-            <tr>
-                <td><%= d.getId() %></td>
-                <td><%= d.getNombre() %></td>
-                <td><a href="moddivision.jsp?id=<%= d.getId() %>">
-                        <input type="button" value="Modificar"/>
-                    </a>
-                </td>
-                <td><a href="deldivision.jsp?id=<%= d.getId() %>">
-                        <input type="button" value="Eliminar"/>
-                    </a></td>
-            </tr>
-            <% } %>
-        </table>
-             
-        <% if(request.getParameter("msj")!= null){%>
-        <h3><%= request.getParameter("msj") %></h3>
+        <form action="ControladorPosicion" method="post">
+            <table>
+                <tr>
+                    <td>ID</td>
+                    <td><input type="text" name="id" readonly="true" value="<%= p.getId() %>" /></td>
+                </tr>
+                <tr>
+                    <td>Nombre</td>
+                    <td><input type="text" name="nombre" readonly="true" value="<%= p.getNombre() %>"/></td>
+                </tr>
+                    <td><input type="reset" value="Limpiar"/></td>
+                    <td><input type="submit" value="Eliminar"/></td>
+                <input type="hidden" name="accion" value="4"/>
+                </tr>
+            </table>
+        </form>
+        <% }%>
+                        <% if(request.getParameter("msj")!= null){%>
+        <h4><%= request.getParameter("msj") %></h4>
         <%}%>
-
             </center>
     </body>
 </html>

@@ -5,6 +5,8 @@
 --%>
 
 
+<%@page import="modelos.Jugador"%>
+<%@page import="dao.JugadorDAO"%>
 <%@page import="modelos.Equipo"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dao.EquipoDAO"%>
@@ -58,7 +60,7 @@
                 <td>Ciudad</td>
                 <td>Division</td>
                 <td>Estadio</td>
-                <td>Division</td>
+                <td>Jugadores</td>
             </tr>
             <%  EquipoDAO eqd = new EquipoDAO();
                 ArrayList<Equipo> equipo = eqd.obtenerEquipos();
@@ -70,13 +72,15 @@
                 <td><%= eq.getCiudad() %></td>
                 <td><%= eq.getEstadio() %></td>
                 <td><%= eq.getDivision() %></td>
-                <td><a href="modificaEquipo.jsp?id=<%= eq.getId() %>">
+                <td></td>
+                <td><a href="modequipo.jsp?id=<%= eq.getId() %>">
                         <input type="button" value="Modificar"/>
                     </a>
                 </td>
-                <td><a href="eliminarEquipo.jsp?id=<%= eq.getId() %>">
+                <td><a href="delequipo.jsp?id=<%= eq.getId() %>">
                         <input type="button" value="Eliminar"/>
                     </a></td>
+                    <td></td>
             </tr>
             <% } %>
         </table>

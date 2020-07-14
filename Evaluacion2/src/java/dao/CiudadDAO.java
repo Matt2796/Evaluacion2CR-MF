@@ -77,8 +77,8 @@ public class CiudadDAO extends Conexion {
     }
 
     public ArrayList<Ciudad> obtenerCiudades() throws SQLException{
-        try{
-            String sentencia = "select * from ciudad";
+        String sentencia = "select * from ciudad";
+        try{      
             conectar();
             PreparedStatement ps = obtenerPS(sentencia);
             ResultSet rs = ps.executeQuery();

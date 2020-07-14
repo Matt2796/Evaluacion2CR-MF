@@ -21,7 +21,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Intranet</title>
+        <title>Registro de información</title>
     </head>
     <body>
     <center>
@@ -82,7 +82,7 @@
                             <option value="0">Seleccione</option>
                             <% ArrayList<Posicion> posiciones = new PosicionDAO().obtenerPosiciones(); 
                             for(Posicion p:posiciones){%>
-                            <option value="<%= p.getId() %>"><%= p %></option>
+                            <option value="<%= p.getId() %>"><%= p.getNombre()  %></option>
                             <% } %>
                         </select>
                     </td>
@@ -98,7 +98,7 @@
                             <option value="0">Seleccione</option>
                             <% ArrayList<Equipo> equipos = new EquipoDAO().obtenerEquipos(); 
                             for(Equipo eq:equipos){%>
-                            <option value="<%= eq.getId() %>"><%= eq %></option>
+                            <option value="<%= eq.getId() %>"><%= eq.getNombre()  %></option>
                             <% } %>
                         </select>
                     </td>
@@ -130,7 +130,7 @@
                             <option value="0">Seleccione</option>
                             <% ArrayList<Ciudad> ciudades = new CiudadDAO().obtenerCiudades(); 
                             for(Ciudad c:ciudades){%>
-                            <option value="<%= c.getId() %>"><%= c %></option>
+                            <option value="<%= c.getId() %>"><%= c.getNombre() %></option>
                             <% } %>
                         </select>
                     </td>
@@ -142,7 +142,7 @@
                             <option value="0">Seleccione</option>
                             <% ArrayList<Estadio> estadios = new EstadioDAO().obtenerEstadios(); 
                             for(Estadio e:estadios){%>
-                            <option value="<%= e.getId() %>"><%= e %></option>
+                            <option value="<%= e.getId() %>"><%= e.getNombre()  %></option>
                             <% } %>
                         </select>
                     </td>
@@ -154,7 +154,7 @@
                             <option value="0">Seleccione</option>
                             <% ArrayList<Division> divisiones = new DivisionDAO().obtenerDivisiones(); 
                             for(Division d:divisiones){%>
-                            <option value="<%= d.getId() %>"><%= d %></option>
+                            <option value="<%= d.getId() %>"><%= d.getNombre()  %></option>
                             <% } %>
                         </select>
                     </td>
@@ -183,7 +183,7 @@
                             <option value="0">Seleccione</option>
                             <% ArrayList<Ciudad> ciudads = new CiudadDAO().obtenerCiudades(); 
                             for(Ciudad c:ciudads){%>
-                            <option value="<%= c.getId() %>"><%= c %></option>
+                            <option value="<%= c.getId() %>"><%= c.getNombre()  %></option>
                             <% } %>
                         </select>
                     </td>

@@ -9,12 +9,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Inicio</title>
+        <title>Inicio de Sesion</title>
     </head>
     <body>
         <center>
                     <h1>Inicio de Sesion</h1>
-        <form action="UsuarioControlador" method="post">
+        <form action="ControladorUsuario" method="post">
         <table>
             <tr>
                 <td>Id</td>

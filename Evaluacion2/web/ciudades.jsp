@@ -13,7 +13,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Ciudades registradas</title>
     </head>
     <body>
     <center>
@@ -61,11 +61,11 @@
             <tr>
                 <td><%= c.getId() %></td>
                 <td><%= c.getNombre() %></td>
-                <td><a href="modificaJugador.jsp?id=<%= c.getId() %>">
+                <td><a href="modciudad.jsp?id=<%= c.getId() %>">
                         <input type="button" value="Modificar"/>
                     </a>
                 </td>
-                <td><a href="eliminarJugador.jsp?id=<%= c.getId() %>">
+                <td><a href="delciudad.jsp?id=<%= c.getId() %>">
                         <input type="button" value="Eliminar"/>
                     </a></td>
             </tr>

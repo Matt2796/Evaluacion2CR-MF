@@ -13,7 +13,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Posiciones registradas</title>
     </head>
     <body>
     <center>
@@ -62,11 +62,11 @@
             <tr>
                 <td><%= p.getId() %></td>
                 <td><%= p.getNombre() %></td>
-                <td><a href="modificaJugador.jsp?id=<%= p.getId() %>">
+                <td><a href="modposicion.jsp?id=<%= p.getId() %>">
                         <input type="button" value="Modificar"/>
                     </a>
                 </td>
-                <td><a href="eliminarJugador.jsp?id=<%= p.getId() %>">
+                <td><a href="delposicion.jsp?id=<%= p.getId() %>">
                         <input type="button" value="Eliminar"/>
                     </a></td>
             </tr>
