@@ -55,7 +55,7 @@
             <table>
                 <tr>
                     <td>ID</td>
-                    <td><input type="text" name="id" value="<%= c.getId() %>" /></td>
+                    <td><input type="number" name="id" readonly="true" value="<%= c.getId() %>" /></td>
                 </tr>
                 <tr>
                     <td>Nombre</td>
@@ -63,9 +63,10 @@
                 </tr>
                     <td><input type="reset" value="Limpiar"/></td>
                     <td><input type="submit" value="Modificar"/></td>
-                <input type="hidden" name="accion" value="3"/>
+                
                 </tr>
             </table>
+                <input type="hidden" name="accion" value="3"/>
         </form>
         <% }%>
                         <% if(request.getParameter("msj")!= null){%>

@@ -14,7 +14,7 @@
     <body>
     <center>
         <h1>Registro de Usuarios</h1>
-        <form action="UsuarioControlador" method="post">
+        <form action="ControladorUsuario" method="post">
             <table>
             <tr>
                <td>ID</td>
@@ -43,7 +43,7 @@
         </table>
             <input type="hidden" name="accion" value="2"/>
         </form>
-        <% if(request.getParameter("msj")!= null){%>
+        <% if(request.getParameter("msj")!= null){%> 
         <h3><%= request.getParameter("msj") %></h3>
         <%}%>
     </center>

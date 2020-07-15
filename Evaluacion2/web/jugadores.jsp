@@ -5,6 +5,11 @@
 --%>
 
 
+<%@page import="dao.EquipoDAO"%>
+<%@page import="modelos.Equipo"%>
+<%@page import="modelos.Equipo"%>
+<%@page import="modelos.Posicion"%>
+<%@page import="dao.PosicionDAO"%>
 <%@page import="modelos.Usuario"%>
 <%@page import="modelos.Jugador"%>
 <%@page import="java.util.ArrayList"%>
@@ -49,7 +54,63 @@
             <menuitem >Ciudades</menuitem>
             </a>
         </menu>
-         
+                 <h2>Registrar jugadores</h2>   
+        <form action="ControladorJugador" method="post">
+            <table>
+                        
+                <tr>
+                    <td>Nombre</td>
+                    <td><input type="text" name="nombre"/></td>
+                </tr>
+                <tr>
+                    <td>Apellido</td>
+                    <td><input type="text" name="apellido"/></td>
+                </tr>
+                <tr>
+                    <td>Fecha de nacimiento</td>
+                    <td><input type="date" name="fecha_nacimiento"/></td>
+                </tr>
+                <tr>
+                    <td>Posicion</td>
+                    <td>
+                        <select name="posicion">
+                            <option value="0">Seleccione</option>
+                            <% ArrayList<Posicion> posiciones = new PosicionDAO().obtenerPosiciones(); 
+                            for(Posicion p:posiciones){%>
+                            <option value="<%= p.getId() %>"><%= p.getNombre()  %></option>
+                            <% } %>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Sueldo</td>
+                    <td><input type="number" name="sueldo" value="0"/></td>
+                </tr>
+                <tr>
+                    <td>Equipo</td>
+                    <td>
+                        <select name="equipo">
+                            <option value="0">Seleccione</option>
+                            <% ArrayList<Equipo> equipos = new EquipoDAO().obtenerEquipos(); 
+                            for(Equipo eq:equipos){%>
+                            <option value="<%= eq.getId() %>"><%= eq.getNombre()  %></option>
+                            <% } %>
+                        </select>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td><input type="reset" value="Limpiar"/></td>
+                    <td><input type="submit" value="Registrar"/></td>
+                <input type="hidden" name="accion" value="2"/>
+                </tr>
+            </table>
+        </form>
+        <% if(request.getParameter("msj")!= null){%>
+        <h3><%= request.getParameter("msj") %></h3>
+        <%}%>
+        <br>
+        <br>
         <h3>Jugadores Registrados</h3>
         <table border="1" style="border-collapse: collapse;">
             <tr>
@@ -83,10 +144,6 @@
             </tr>
             <% } %>
         </table>
-             
-        <% if(request.getParameter("msj")!= null){%>
-        <h3><%= request.getParameter("msj") %></h3>
-        <%}%>
 
            </center>
     </body>

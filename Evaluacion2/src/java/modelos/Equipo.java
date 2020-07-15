@@ -23,6 +23,14 @@ public class Equipo {
         this.estadio = estadio;
         this.division = division;
     }
+
+    public Equipo(String nombre, Ciudad ciudad, Estadio estadio, Division division) {
+        this.nombre = nombre;
+        this.ciudad = ciudad;
+        this.estadio = estadio;
+        this.division = division;
+    }
+    
     
     public Equipo(){
         

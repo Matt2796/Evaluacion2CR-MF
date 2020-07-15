@@ -5,6 +5,12 @@
 --%>
 
 
+<%@page import="dao.DivisionDAO"%>
+<%@page import="modelos.Division"%>
+<%@page import="modelos.Estadio"%>
+<%@page import="dao.EstadioDAO"%>
+<%@page import="dao.CiudadDAO"%>
+<%@page import="modelos.Ciudad"%>
 <%@page import="modelos.Jugador"%>
 <%@page import="dao.JugadorDAO"%>
 <%@page import="modelos.Equipo"%>
@@ -51,7 +57,62 @@
             <menuitem >Ciudades</menuitem>
             </a>
         </menu>
-
+        <h2>Registrar equipos</h2>            
+        <form action="ControladorEquipo" method="post">                    
+            <table>
+                <tr>
+                    <td>Nombre</td>
+                    <td><input type="text" name="nombre"/></td>
+                </tr>
+                <tr>
+                    <td>Ciudad</td>
+                    <td>
+                        <select name="ciudad">
+                            <option value="0">Seleccione</option>
+                            <% ArrayList<Ciudad> ciudades = new CiudadDAO().obtenerCiudades(); 
+                            for(Ciudad c:ciudades){%>
+                            <option value="<%= c.getId() %>"><%= c.getNombre() %></option>
+                            <% } %>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Estadio</td>
+                    <td>
+                        <select name="estadio">
+                            <option value="0">Seleccione</option>
+                            <% ArrayList<Estadio> estadios = new EstadioDAO().obtenerEstadios(); 
+                            for(Estadio e:estadios){%>
+                            <option value="<%= e.getId() %>"><%= e.getNombre()  %></option>
+                            <% } %>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Division</td>
+                    <td>
+                        <select name="division">
+                            <option value="0">Seleccione</option>
+                            <% ArrayList<Division> divisiones = new DivisionDAO().obtenerDivisiones(); 
+                            for(Division d:divisiones){%>
+                            <option value="<%= d.getId() %>"><%= d.getNombre()  %></option>
+                            <% } %>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="reset" value="Limpiar"/></td>
+                    <td><input type="submit" value="Registrar"/></td>
+                <input type="hidden" name="accion" value="2"/>
+                </tr>
+            </table>
+   
+        </form>
+        <br>
+                <% if(request.getParameter("msj")!= null){%> 
+        <h3><%= request.getParameter("msj") %></h3>
+        <%}%>
+        <br>
         <h3>Equipos Registrados</h3>
         <table border="1" style="border-collapse: collapse;">
             <tr>
@@ -85,9 +146,6 @@
             <% } %>
         </table>
                 
-        <% if(request.getParameter("msj")!= null){%>
-        <h3><%= request.getParameter("msj") %></h3>
-        <%}%>
     </center>
     </body>
 </html>

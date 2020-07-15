@@ -17,6 +17,10 @@ public class Posicion {
         this.id = id;
         this.nombre = nombre;
     }
+
+    public Posicion(String nombre) {
+        this.nombre = nombre;
+    }
     
     public Posicion(){
         

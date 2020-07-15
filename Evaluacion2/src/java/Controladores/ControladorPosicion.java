@@ -52,53 +52,52 @@ public class ControladorPosicion extends HttpServlet {
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws IOException{
         try{
             
-            int id = Integer.parseInt(request.getParameter("id").trim());
             String nombre = request.getParameter("nombre").trim();
            
             if(nombre.equals("")){
-                response.sendRedirect("delposicion.jsp?msj=Valores no permitidos");
+                response.sendRedirect("posiciones.jsp?msj=Valores no permitidos");
             }else{
                 PosicionDAO pos = new PosicionDAO();
-                Posicion p = new Posicion(id,nombre);
+                Posicion p = new Posicion(nombre);
                 if(pos.obtenerPosicion(p.getId())==null){
                     int respuesta = pos.registrar(p);
                     if(respuesta==1){
-                    response.sendRedirect("modposicion.jsp?msj=Posicion registrada");
+                    response.sendRedirect("posiciones.jsp?msj=Posicion registrada");
                     }else{
-                    response.sendRedirect("modposicion.jsp?msj=Posicion no se pudo registrar");
+                    response.sendRedirect("posiciones.jsp?msj=Posicion no se pudo registrar");
                     }
                 }else{
-                    response.sendRedirect("modposicion.jsp?msj=Posicion ya existe");
+                    response.sendRedirect("posiciones.jsp?msj=Posicion ya existe");
                 }
             }
            }catch(Exception e){
-               response.sendRedirect("modposicion.jsp?msj="+e.getMessage());
+               response.sendRedirect("posiciones.jsp?msj="+e.getMessage());
            }
     }
-    private void modificar(HttpServletRequest request, HttpServletResponse response){
+    private void modificar(HttpServletRequest request, HttpServletResponse response) throws IOException{
         try{
             int id = Integer.parseInt(request.getParameter("id").trim());
             String nombre = request.getParameter("nombre").trim();
             
             if(id<1||nombre.equals("")){
-                response.sendRedirect("modPosicion.jsp?msj=valores erroneos");
+                response.sendRedirect("modposicion.jsp?msj=valores erroneos");
             }else{
                 PosicionDAO pos = new PosicionDAO();
                 Posicion p = new Posicion(id,nombre);
                 
                 if(pos.obtenerPosicion(p.getId())==null){
-                    response.sendRedirect("modPosicion.jsp?msj=Posicion no existe");
+                    response.sendRedirect("posiciones.jsp?msj=Posicion no existe");
                 }else{
                    int respuesta = pos.modificar(p);
                    if(respuesta>0){
-                       response.sendRedirect("modPosicion.jsp?msj=Posicion modificada");
+                       response.sendRedirect("posiciones.jsp?msj=Posicion modificada");
                    }else{
-                       response.sendRedirect("modPosicion.jsp?msj=Posicion no se pudo modificar");
+                       response.sendRedirect("posiciones.jsp?msj=Posicion no se pudo modificar");
                    }
                 }
             }
          }catch(Exception e){
-             
+               response.sendRedirect("modposicion.jsp?msj="+e.getMessage());             
          }
     }
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws IOException{
@@ -107,27 +106,27 @@ public class ControladorPosicion extends HttpServlet {
             String nombre = request.getParameter("nombre").trim();
            
             if(nombre.equals("")||id<1){
-                response.sendRedirect("crudEstados.jsp?msj=Opcion no valida");
+                response.sendRedirect("delposicion.jsp?msj=Opcion no valida");
             }else{
                 PosicionDAO pos = new PosicionDAO();
                 Posicion p = new Posicion(id,nombre);
                 if(pos.obtenerPosicion(p.getId())!=null){
                     JugadorDAO jug = new JugadorDAO();
                     if(jug.existePosicion(p)){
-                        response.sendRedirect("delposicion.jsp?msj=No se puede eliminar por tener jugadores en esa posicion");
+                        response.sendRedirect("posiciones.jsp?msj=No se puede eliminar por tener jugadores en esa posicion");
                     }else{
                     int respuesta = pos.eliminar(p);
                     if(respuesta==1){
-                    response.sendRedirect("delposicion.jsp?msj=Posicion eliminada");
+                    response.sendRedirect("posiciones.jsp?msj=Posicion eliminada");
                     }else{
-                    response.sendRedirect("delposicion.jsp?msj=Posicion no se pudo eliminar");
+                    response.sendRedirect("posiciones.jsp?msj=Posicion no se pudo eliminar");
                     }}
                 }else{
-                    response.sendRedirect("delposicion.jsp?msj=Posicion no existe");
+                    response.sendRedirect("posiciones.jsp?msj=Posicion no existe");
                 }
             }
            }catch(Exception e){
-               response.sendRedirect("delposicion.jsp?msj="+e.getMessage());
+               response.sendRedirect("delposicio.jsp?msj="+e.getMessage());
            }
     }
 

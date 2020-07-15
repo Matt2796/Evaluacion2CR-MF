@@ -48,6 +48,27 @@
             <menuitem >Ciudades</menuitem>
             </a>
         </menu>
+        
+        <h2>Registrar divisiones</h2>                       
+        <form action="ControladorDivision" method="post">
+            
+            <table>
+                <tr>
+                    <td>Nombre</td>
+                    <td><input type="text" name="nombre"/></td>
+                </tr>
+                <tr>
+                    <td><input type="reset" value="Limpiar"/></td>
+                    <td><input type="submit" value="Registrar"/></td>
+                <input type="hidden" name="accion" value="2"/>
+                </tr>
+            </table>
+        <% if(request.getParameter("msj")!= null){%>
+        <h3><%= request.getParameter("msj") %></h3>
+        <%}%>        
+        </form>
+        <br>
+        <br>
        <h3>Divisiones registradas</h3>
         <table border="1" style="border-collapse: collapse;">
             <tr>

@@ -4,6 +4,8 @@
     Author     : mfaun
 --%>
 
+<%@page import="dao.CiudadDAO"%>
+<%@page import="modelos.Ciudad"%>
 <%@page import="modelos.Estadio"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dao.EstadioDAO"%>
@@ -47,7 +49,44 @@
             <a href="ciudades.jsp">
             <menuitem >Ciudades</menuitem>
             </a>
-        </menu>   
+        </menu>         
+        <h2>Registrar estadios</h2>
+        <form action="ControladorEstadio" method="post">                    
+            <table>
+                <tr>
+                    <td>Nombre</td>
+                    <td><input type="text" name="nombre"/></td>
+                </tr>
+                <tr>
+                    <td>Ciudad</td>
+                    <td>
+                        <select name="ciudad">
+                            <option value="0">Seleccione</option>
+                            <% ArrayList<Ciudad> ciudads = new CiudadDAO().obtenerCiudades(); 
+                            for(Ciudad c:ciudads){%>
+                            <option value="<%= c.getId() %>"><%= c.getNombre()  %></option>
+                            <% } %>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Capacidad</td>
+                    <td><input type="number" name="capacidad"/></td>
+                </tr>
+                <tr>
+                    <td><input type="reset" value="Limpiar"/></td>
+                    <td><input type="submit" value="Registrar"/></td>
+                <input type="hidden" name="accion" value="2"/>
+                </tr>
+            </table>
+   
+        </form>
+                        
+        <br>
+                <% if(request.getParameter("msj")!= null){%> 
+        <h3><%= request.getParameter("msj") %></h3>
+        <%}%>
+        <br>
                 <h3>Estadios Registrados</h3>
         <table border="1" style="border-collapse: collapse;">
             <tr>
@@ -75,10 +114,6 @@
             </tr>
             <% } %>
         </table>
-             
-        <% if(request.getParameter("msj")!= null){%>
-        <h3><%= request.getParameter("msj") %></h3>
-        <%}%>
             </center>
     </body>
 </html>

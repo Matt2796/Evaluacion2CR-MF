@@ -54,7 +54,7 @@
             <table>
                 <tr>
                     <td>ID</td>
-                    <td><input type="text" name="id" value="<%= p.getId() %>" /></td>
+                    <td><input type="number" name="id" readonly="true" value="<%= p.getId() %>" /></td>
                 </tr>
                 <tr>
                     <td>Nombre</td>

@@ -52,31 +52,30 @@ public class ControladorDivision extends HttpServlet {
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws IOException{
         try{
             
-            int id = Integer.parseInt(request.getParameter("id").trim());
             String nombre = request.getParameter("nombre").trim();
            
             if(nombre.equals("")){
-                response.sendRedirect("deldivision.jsp?msj=Valores no permitidos");
+                response.sendRedirect("divisiones.jsp?msj=Valores no permitidos");
             }else{
                 DivisionDAO di = new DivisionDAO();
-                Division d = new Division(id,nombre);
+                Division d = new Division(nombre);
                 
                 if(di.obtenerDivision(d.getId())==null){
                     int respuesta = di.registrar(d);
                     if(respuesta==1){
-                    response.sendRedirect("moddivision.jsp?msj=Division registrada");
+                    response.sendRedirect("divisiones.jsp?msj=Division registrada");
                     }else{
-                    response.sendRedirect("moddivision.jsp?msj=Division no se pudo registrar");
+                    response.sendRedirect("divisiones.jsp?msj=Division no se pudo registrar");
                     }
                 }else{
-                    response.sendRedirect("moddivision.jsp?msj=Division ya existe");
+                    response.sendRedirect("divisiones.jsp?msj=Division ya existe");
                 }
             }
            }catch(Exception e){
-               response.sendRedirect("moddivision.jsp?msj="+e.getMessage());
+               response.sendRedirect("divisiones.jsp?msj="+e.getMessage());
            }
     }
-    private void modificar(HttpServletRequest request, HttpServletResponse response){
+    private void modificar(HttpServletRequest request, HttpServletResponse response) throws IOException{
         try{
             int id = Integer.parseInt(request.getParameter("id").trim());
             String nombre = request.getParameter("nombre").trim();
@@ -88,18 +87,18 @@ public class ControladorDivision extends HttpServlet {
                 Division d = new Division(id,nombre);
                 
                 if(di.obtenerDivision(d.getId())==null){
-                    response.sendRedirect("moddivision.jsp?msj=Division no existe");
+                    response.sendRedirect("divisiones.jsp?msj=Division no existe");
                 }else{
                    int respuesta = di.modificar(d);
                    if(respuesta>0){
-                       response.sendRedirect("moddivision.jsp?msj=Division modificada");
+                       response.sendRedirect("divisiones.jsp?msj=Division modificada");
                    }else{
-                       response.sendRedirect("moddivision.jsp?msj=Division no se pudo modificar");
+                       response.sendRedirect("divisiones.jsp?msj=Division no se pudo modificar");
                    }
                 }
             }
          }catch(Exception e){
-             
+               response.sendRedirect("moddivision.jsp?msj="+e.getMessage());             
          }
     }
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws IOException{
@@ -117,16 +116,16 @@ public class ControladorDivision extends HttpServlet {
                     EquipoDAO eq = new EquipoDAO();
                     
                     if(eq.existeDivision(d)){
-                        response.sendRedirect("deldivision.jsp?msj=No se puede eliminar la division por tener equipos");
+                        response.sendRedirect("divisiones.jsp?msj=No se puede eliminar la division por estar asociada a un o unos equipos");
                     }else{
                     int respuesta = di.eliminar(d);
                     if(respuesta==1){
-                    response.sendRedirect("deldivision.jsp?msj=Division eliminada");
+                    response.sendRedirect("divisiones.jsp?msj=Division eliminada");
                     }else{
-                    response.sendRedirect("deldivision.jsp?msj=Division no se pudo eliminar");
+                    response.sendRedirect("divisiones.jsp?msj=Division no se pudo eliminar");
                     }}
                 }else{
-                    response.sendRedirect("deldivision.jsp?msj=Division no existe");
+                    response.sendRedirect("divisiones.jsp?msj=Division no existe");
                 }
             }
            }catch(Exception e){

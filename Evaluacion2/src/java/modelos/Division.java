@@ -17,6 +17,11 @@ public class Division {
         this.id = id;
         this.nombre = nombre;
     }
+
+
+    public Division(String nombre) {
+        this.nombre = nombre;
+    }
     public Division(){
         
     }

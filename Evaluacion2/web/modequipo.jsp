@@ -62,7 +62,7 @@
             <table>
                 <tr>
                     <td>Id</td>
-                    <td><input type="number" name="id" value="<%= eq.getId() %>" readonly="true"/></td>
+                    <td><input type="number" name="id" readonly="true"  value="<%= eq.getId() %>" readonly="true"/></td>
                 </tr>
                 <tr>
                     <td>Nombre</td>

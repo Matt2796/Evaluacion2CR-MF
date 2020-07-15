@@ -47,7 +47,26 @@
             <a href="ciudades.jsp">
             <menuitem >Ciudades</menuitem>
             </a>
-        </menu>   
+        </menu>  
+                <h2>Registrar ciudades</h2>
+         <form action="ControladorCiudad" method="post">
+            <table>
+                <tr>
+                    <td>Nombre</td>
+                    <td><input type="text" name="nombre"/></td>
+                </tr>
+                <tr>
+                    <td><input type="reset" value="Limpiar"/></td>
+                    <td><input type="submit" value="Registrar"/></td>
+                <input type="hidden" name="accion" value="2"/>
+                </tr>
+            </table>
+        </form>
+                <br>
+                        <% if(request.getParameter("msj")!= null){%> 
+        <h3><%= request.getParameter("msj") %></h3>
+        <%}%>
+                <br>
                     <h3>Ciudades registradas</h3>
         <table border="1" style="border-collapse: collapse;">
             <tr>
@@ -71,11 +90,6 @@
             </tr>
             <% } %>
         </table>
-             
-        <% if(request.getParameter("msj")!= null){%>
-        <h3><%= request.getParameter("msj") %></h3>
-        <%}%>
-
             </center>
     </body>
 </html>

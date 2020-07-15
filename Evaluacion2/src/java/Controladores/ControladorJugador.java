@@ -58,39 +58,35 @@ public class ControladorJugador extends HttpServlet {
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws IOException{
         try{
             
-            int id = Integer.parseInt(request.getParameter("id").trim());
             String nombre = request.getParameter("nombre").trim();
             String apellido = request.getParameter("apellido").trim();
             int sueldo = Integer.parseInt(request.getParameter("sueldo").trim());
-            String fecha_nacimiento = request.getParameter("feha_nacimiento").trim();
             int posicion = Integer.parseInt(request.getParameter("posicion").trim());
             int equipo = Integer.parseInt(request.getParameter("equipo").trim());
            
-            if(id<1 || nombre.equals("") || apellido.equals("") || sueldo<1 || fecha_nacimiento.equals("") || posicion<1 || equipo<1){
-                response.sendRedirect("modJugador.jsp?msj=Valores incompletos");
+                if(nombre.equals("") || apellido.equals("") || sueldo<1 || posicion<1 || equipo<1){
+                response.sendRedirect("jugadores.jsp?msj=Valores incompletos");
             }else{
-                Date date = new Date();
-                date.setTime(Integer.parseInt(fecha_nacimiento));
                 
                 PosicionDAO p = new PosicionDAO();
                 EquipoDAO e = new EquipoDAO();
                 
                 JugadorDAO jug = new JugadorDAO();
-                Jugador j = new Jugador(id,nombre,apellido,date, p.obtenerPosicion(posicion),sueldo,e.obtenerEquipo(equipo));
+                Jugador j = new Jugador(nombre,apellido, p.obtenerPosicion(posicion),sueldo,e.obtenerEquipo(equipo));
                 
-                if(jug.obtenerJugador(id)==null){
+                if(jug.obtenerJugador(j.getId())==null){
                     int respuesta = jug.registrarJugador(j);
                     if(respuesta==1){
-                    response.sendRedirect("modJugador.jsp?msj=Jugador registrada");
+                    response.sendRedirect("jugadores.jsp?msj=Jugador registrada");
                     }else{
-                    response.sendRedirect("modJugador.jsp?msj=Jugador no se pudo registrar");
+                    response.sendRedirect("jugadores.jsp?msj=Jugador no se pudo registrar");
                     }
                 }else{
-                    response.sendRedirect("modJugador.jsp?msj=Jugador ya existe");
+                    response.sendRedirect("jugadores.jsp?msj=Jugador ya existe");
                 }
             }
            }catch(Exception e){
-               response.sendRedirect("modposicion.jsp?msj="+e.getMessage());
+               response.sendRedirect("jugadores.jsp?msj="+e.getMessage());
            }
     }
     private void modificar(HttpServletRequest request, HttpServletResponse response) throws IOException{
@@ -116,18 +112,18 @@ public class ControladorJugador extends HttpServlet {
                 Jugador j = new Jugador(id,nombre,apellido,date, p.obtenerPosicion(posicion),sueldo,e.obtenerEquipo(equipo));
                 
                 if(jug.obtenerJugador(j.getId())==null){
-                    response.sendRedirect("modJugador.jsp?msj=Jugador no existe");
+                    response.sendRedirect("jugadores.jsp?msj=Jugador no existe");
                 }else{
                    int respuesta = jug.modificar(j);
                    if(respuesta>0){
-                       response.sendRedirect("modJugador.jsp?msj=Jugador modificado");
+                       response.sendRedirect("jugadores.jsp?msj=Jugador modificado");
                    }else{
-                       response.sendRedirect("modJugador.jsp?msj=Jugador no se pudo modificar");
+                       response.sendRedirect("jugadores.jsp?msj=Jugador no se pudo modificar");
                    }
                 }
             }
          }catch(Exception e){
-             
+               response.sendRedirect("modjugador.jsp?msj="+e.getMessage());             
          }
     }
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws IOException{
@@ -141,7 +137,7 @@ public class ControladorJugador extends HttpServlet {
             int equipo = Integer.parseInt(request.getParameter("equipo").trim());
            
             if(id<1 || nombre.equals("") || apellido.equals("") || sueldo<1 || fecha_nacimiento.equals("") || posicion<1 || equipo<1){
-                response.sendRedirect("delJugador.jsp?msj=Opcion no valida");
+                response.sendRedirect("deljugador.jsp?msj=Opcion no valida");
             }else{
                 Date date = new Date();
                 date.setTime(Integer.parseInt(fecha_nacimiento));
@@ -155,16 +151,16 @@ public class ControladorJugador extends HttpServlet {
                 if(jug.obtenerJugador(j.getId())!=null){      
                     int respuesta = jug.eliminar(j);
                     if(respuesta==1){
-                    response.sendRedirect("deljugador.jsp?msj=Jugador eliminado");
+                    response.sendRedirect("jugadores.jsp?msj=Jugador eliminado");
                     }else{
-                    response.sendRedirect("deljugador.jsp?msj=Jugador no se pudo eliminar");
+                    response.sendRedirect("jugadores.jsp?msj=Jugador no se pudo eliminar");
                     }
                 }else{
-                    response.sendRedirect("deljugador.jsp?msj=Jugador no existe");
+                    response.sendRedirect("jugadores.jsp?msj=Jugador no existe");
                 }
             }
            }catch(Exception e){
-               response.sendRedirect("delposicion.jsp?msj="+e.getMessage());
+               response.sendRedirect("deljugadores.jsp?msj="+e.getMessage());
            }
     }
     
