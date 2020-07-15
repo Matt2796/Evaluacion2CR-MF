@@ -95,8 +95,7 @@
                 <td>Ciudad</td>
                 <td>Capacidad</td>
             </tr>
-            <%  EstadioDAO ed = new EstadioDAO();
-                ArrayList<Estadio> estadio = ed.obtenerEstadios();
+            <%  ArrayList<Estadio> estadio = new EstadioDAO().obtenerEstadios();
             for(Estadio e:estadio){
             %>
             <tr>

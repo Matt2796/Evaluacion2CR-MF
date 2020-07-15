@@ -23,10 +23,11 @@
     <body>
             <center>
         <h1>Eliminar equipo</h1>
-            <% if(session.getAttribute("usuario")!= null){
-             Usuario u = (Usuario) session.getAttribute("usuario");
+<% if(session.getAttribute("usuario")==null){
+            response.sendRedirect("index.jsp?msj=No te pases");
+        }else{if(request.getParameter("id")!=null){
+            Equipo eq = new EquipoDAO().obtenerEquipo(Integer.parseInt(request.getParameter("id")));
             %>
-        <%}else{response.sendRedirect("index.jsp?msj=acceso denegado");}%>
         
         <a href="Salir"><input type="button" value="Cerrar Sesion"/></a>
         <h2>Menu de navegacion</h2>
@@ -54,9 +55,6 @@
             </a>
         </menu>
         
-                        <% if(request.getParameter("id")!=null){
-            Equipo eq = new EquipoDAO().obtenerEquipo(Integer.parseInt(request.getParameter("id")));
-            %>
         <form action="ControladorEquipo" method="post">
             <table>
                 <tr>
@@ -97,7 +95,7 @@
                 <tr>
                     <td>Division</td>
                     <td>
-                        <select name="division">
+                        <select name="division" readonly="true">
                             <option value="0">Seleccione</option>
                             <% ArrayList<Division> division = new DivisionDAO().obtenerDivisiones(); 
                             for(Division d:division){%>
@@ -119,4 +117,5 @@
         <h4><%= request.getParameter("msj") %></h4>
         <%}%>
             </center>
+            <%}%>
     </body>

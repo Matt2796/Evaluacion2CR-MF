@@ -55,34 +55,33 @@ public class ControladorEquipo extends HttpServlet {
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws IOException{
         try{
             
-            int id = Integer.parseInt(request.getParameter("id").trim());
             String nombre = request.getParameter("nombre").trim();
             int ciudad = Integer.parseInt(request.getParameter("ciudad").trim());
             int estadio = Integer.parseInt(request.getParameter("estadio").trim());
             int division = Integer.parseInt(request.getParameter("division").trim());
            
-            if(id<1 || nombre.equals("") || ciudad<1 || estadio<1 || division<1){
-                response.sendRedirect("delequipo.jsp?msj=Valores incompletos");
+            if(nombre.equals("") || ciudad<1 || estadio<1 || division<1){
+                response.sendRedirect("equipos.jsp?msj=Valores incompletos");
             }else{
                 EquipoDAO eq = new EquipoDAO();
                 CiudadDAO ci = new CiudadDAO();
                 EstadioDAO es = new EstadioDAO();
                 DivisionDAO di = new DivisionDAO();
-                Equipo e = new Equipo(id,nombre,ci.obtenerCiudad(ciudad),es.obtenerEstadio(estadio),di.obtenerDivision(division));
+                Equipo e = new Equipo(nombre,ci.obtenerCiudad(ciudad),es.obtenerEstadio(estadio),di.obtenerDivision(division));
                 
                 if(eq.obtenerEquipo(e.getId())==null){
                     int respuesta = eq.registrar(e);
                     if(respuesta==1){
-                    response.sendRedirect("modequipo.jsp?msj=Equipo registrado");
+                    response.sendRedirect("equipos.jsp?msj=Equipo registrado");
                     }else{
-                    response.sendRedirect("modequipo.jsp?msj=Equipo no se pudo registrar");
+                    response.sendRedirect("equipos.jsp?msj=Equipo no se pudo registrar");
                     }
                 }else{
-                    response.sendRedirect("modequipo.jsp?msj=Equipo ya existe");
+                    response.sendRedirect("equipos.jsp?msj=Equipo ya existe");
                 }
             }
            }catch(Exception e){
-               response.sendRedirect("modequipo.jsp?msj="+e.getMessage());
+               response.sendRedirect("equipos.jsp?msj="+e.getMessage());
            }
     }
     private void modificar(HttpServletRequest request, HttpServletResponse response) throws IOException{
@@ -103,13 +102,13 @@ public class ControladorEquipo extends HttpServlet {
                 Equipo e = new Equipo(id,nombre,ci.obtenerCiudad(ciudad),es.obtenerEstadio(estadio),di.obtenerDivision(division));
 
                 if(eq.obtenerEquipo(e.getId())==null){
-                    response.sendRedirect("modequipo.jsp?msj=Equipo no existe");
+                    response.sendRedirect("equipos.jsp?msj=Equipo no existe");
                 }else{
                    int respuesta = eq.modificar(e);
                    if(respuesta>0){
-                       response.sendRedirect("modequipo.jsp?msj=Equipo modificado");
+                       response.sendRedirect("equipos.jsp?msj=Equipo modificado");
                    }else{
-                       response.sendRedirect("modequipo.jsp?msj=Equipo no se pudo modificar");
+                       response.sendRedirect("equipos.jsp?msj=Equipo no se pudo modificar");
                    }
                 }
             }
@@ -137,16 +136,16 @@ public class ControladorEquipo extends HttpServlet {
                 if(eq.obtenerEquipo(e.getId())!=null){
                     JugadorDAO jug = new JugadorDAO();
                     if(jug.existeEquipo(e)){
-                        response.sendRedirect("delequipo.jsp?msj=No se puede eliminar por tener jugadores");
+                        response.sendRedirect("equipos.jsp?msj=No se puede eliminar por tener jugadores asociados");
                     }else{
                     int respuesta = eq.eliminar(e);
                     if(respuesta==1){
-                    response.sendRedirect("delequipo.jsp?msj=Equipo eliminado");
+                    response.sendRedirect("equipos.jsp?msj=Equipo eliminado");
                     }else{
-                    response.sendRedirect("delequipo.jsp?msj=Equipo no se pudo eliminar");
+                    response.sendRedirect("equipos.jsp?msj=Equipo no se pudo eliminar");
                     }}
                 }else{
-                    response.sendRedirect("delequipo.jsp?msj=Equipo no existe");
+                    response.sendRedirect("equipos.jsp?msj=Equipo no existe");
                 }
             }
            }catch(Exception e){

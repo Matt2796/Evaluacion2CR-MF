@@ -52,31 +52,30 @@ public class ControladorEstadio extends HttpServlet {
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws IOException{
         try{
-            int id = Integer.parseInt(request.getParameter("id").trim());
             String nombre = request.getParameter("nombre").trim();
             int ciudad = Integer.parseInt(request.getParameter("ciudad").trim());
             int capacidad = Integer.parseInt(request.getParameter("capacidad").trim());
            
-            if(id<1 || nombre.equals("") || ciudad<1 || capacidad<1){
-                response.sendRedirect("modestadio.jsp?msj=Valores incompletos");
+            if(nombre.equals("") || ciudad<1 || capacidad<1){
+                response.sendRedirect("estadios.jsp?msj=Valores incompletos");
             }else{
                 EstadioDAO es = new EstadioDAO();
                 CiudadDAO ci = new CiudadDAO();
-                Estadio e = new Estadio(id,nombre,ci.obtenerCiudad(ciudad),capacidad);
+                Estadio e = new Estadio(nombre,ci.obtenerCiudad(ciudad),capacidad);
                 
                 if(es.obtenerEstadio(e.getId())==null){
                     int respuesta = es.registrar(e);
                     if(respuesta==1){
-                    response.sendRedirect("modestadio.jsp?msj=Estadio registrado");
+                    response.sendRedirect("estadios.jsp?msj=Estadio registrado");
                     }else{
-                    response.sendRedirect("modestadio.jsp?msj=Estadio no se pudo registrar");
+                    response.sendRedirect("estadios.jsp?msj=Estadio no se pudo registrar");
                     }
                 }else{
-                    response.sendRedirect("modestadio.jsp?msj=Estadio ya existe");
+                    response.sendRedirect("estadios.jsp?msj=Estadio ya existe");
                 }
             }
            }catch(Exception e){
-               response.sendRedirect("modestadio.jsp?msj="+e.getMessage());
+               response.sendRedirect("estadios.jsp?msj="+e.getMessage());
            }
     }
     private void modificar(HttpServletRequest request, HttpServletResponse response) throws IOException{
@@ -94,13 +93,13 @@ public class ControladorEstadio extends HttpServlet {
                 Estadio e = new Estadio(id,nombre,ci.obtenerCiudad(ciudad),capacidad);
                 
                 if(es.obtenerEstadio(e.getId())==null){
-                    response.sendRedirect("modestadio.jsp?msj=Estadio no existe");
+                    response.sendRedirect("estadios.jsp?msj=Estadio no existe");
                 }else{
                    int respuesta = es.modificar(e);
                    if(respuesta>0){
-                       response.sendRedirect("modestadio.jsp?msj=Estadio modificado");
+                       response.sendRedirect("estadios.jsp?msj=Estadio modificado");
                    }else{
-                       response.sendRedirect("modestadio.jsp?msj=Estadio no se pudo modificar");
+                       response.sendRedirect("estadios.jsp?msj=Estadio no se pudo modificar");
                    }
                 }
             }
@@ -125,16 +124,16 @@ public class ControladorEstadio extends HttpServlet {
                 if(es.obtenerEstadio(e.getId())!=null){
                     EquipoDAO eq = new EquipoDAO();
                     if(eq.existeEstadio(e)){
-                        response.sendRedirect("delestadio.jsp?msj=No se puede eliminar por tener equipos");
+                        response.sendRedirect("estadios.jsp?msj=No se puede eliminar por tener equipos");
                     }else{
                     int respuesta = es.eliminar(e);
                     if(respuesta==1){
-                    response.sendRedirect("delestadio.jsp?msj=Estadio eliminado");
+                    response.sendRedirect("estadios.jsp?msj=Estadio eliminado");
                     }else{
-                    response.sendRedirect("delestadio.jsp?msj=Estadio no se pudo eliminar");
+                    response.sendRedirect("estadios.jsp?msj=Estadio no se pudo eliminar");
                     }}
                 }else{
-                    response.sendRedirect("delestadio.jsp?msj=Estadio no existe");
+                    response.sendRedirect("estadios.jsp?msj=Estadio no existe");
                 }
             }
            }catch(Exception e){

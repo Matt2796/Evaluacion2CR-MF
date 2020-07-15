@@ -20,12 +20,12 @@ import modelos.Jugador;
 public class EstadioDAO extends Conexion {
         public int registrar(Estadio es) throws SQLException{
         try{
-            String sentencia ="Insert into estadio (nombre, id_ciudad, capacidad) values (?.?,?)";
+            String sentencia ="Insert into estadio (nombre, id_ciudad, capacidad) values (?,?,?)";
             conectar();
             PreparedStatement ps = obtenerPS(sentencia);
             ps.setString(1, es.getNombre());
             ps.setInt(2, es.getCiudad().getId());
-            ps.setInt(4, es.getCapacidad());
+            ps.setInt(3, es.getCapacidad());
             return ps.executeUpdate();
         }catch(Exception e){
             return -1;
@@ -65,15 +65,15 @@ public class EstadioDAO extends Conexion {
     
         public Estadio obtenerEstadio(int id) throws SQLException{
         try{
-            String sentencia = "select * from estadio where codigo = ?";
+            String sentencia = "select * from v_estadio where codigo = ?";
             conectar();
             PreparedStatement ps = obtenerPS(sentencia);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             Estadio es = null;
-            CiudadDAO cd = new CiudadDAO();
             if(rs.next()){
-                es = new Estadio(rs.getInt("id"),rs.getString("nombre"),cd.obtenerCiudad(rs.getInt("id")),rs.getInt("capacidad"));
+                Ciudad c = new Ciudad(rs.getInt("id_ciudad"),rs.getString("nombre_ciudad"));
+                es = new Estadio(rs.getInt("id"),rs.getString("nombre"),c,rs.getInt("capacidad"));
             }
             return es;
         }catch(Exception e){
@@ -85,16 +85,16 @@ public class EstadioDAO extends Conexion {
 
     public ArrayList<Estadio> obtenerEstadios() throws SQLException{
         try{
-            String sentencia = "select * from estadio";
+            String sentencia = "select * from v_estadios";
             conectar();
             PreparedStatement ps = obtenerPS(sentencia);
             ResultSet rs = ps.executeQuery();
-            ArrayList<Estadio> lista = new ArrayList();
-            CiudadDAO cd = new CiudadDAO();
+            ArrayList<Estadio> estadios = new ArrayList();
             while(rs.next()){
-                lista.add(new Estadio(rs.getInt("id"),rs.getString("nombre"),cd.obtenerCiudad(rs.getInt("id")),rs.getInt("capacidad")));
+                Ciudad c = new Ciudad(rs.getInt("id_ciudad"),rs.getString("nombre_ciudad"));
+                estadios.add(new Estadio(rs.getInt("id"),rs.getString("nombre"),c,rs.getInt("capacidad")));
             }
-            return lista;
+            return estadios;
         }catch(Exception e){
             return new ArrayList();
         }finally{
