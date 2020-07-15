@@ -14,6 +14,7 @@ import java.util.Calendar;
 import modelos.Jugador;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import modelos.Equipo;
 import modelos.Posicion;
 
 /**
@@ -165,6 +166,21 @@ public class JugadorDAO extends Conexion {
             conectar();
             PreparedStatement ps = obtenerPS(sentencia);
             ps.setInt(1, posicion.getId());
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        }catch(Exception e){
+            return false;
+        }finally{
+            desconectar();
+        }
+    }
+    
+    public boolean existeEquipo(Equipo equipo) throws SQLException{
+        try{
+            String sentencia = "select * from Jugador where id_equipo = ?";
+            conectar();
+            PreparedStatement ps = obtenerPS(sentencia);
+            ps.setInt(1, equipo.getId());
             ResultSet rs = ps.executeQuery();
             return rs.next();
         }catch(Exception e){
