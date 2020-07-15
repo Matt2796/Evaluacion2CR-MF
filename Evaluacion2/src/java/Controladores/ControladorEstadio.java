@@ -5,6 +5,9 @@
  */
 package Controladores;
 
+import dao.CiudadDAO;
+import dao.EquipoDAO;
+import dao.EstadioDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelos.Estadio;
 
 /**
  *
@@ -31,20 +35,112 @@ public class ControladorEstadio extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ControladorEstadio</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ControladorEstadio at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        if(request.getParameter("accion")!=null){
+        String accion = request.getParameter("accion");
+        switch(accion){
+            case "2": registrar(request,response);
+                break;
+            case "3": modificar(request,response);
+            break;
+            case "4": eliminar(request,response);
+            break;
         }
+         }else{
+             response.sendRedirect("estadios.jsp?msj=Opcion no valida");
+         }
     }
+
+    private void registrar(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        try{
+            int id = Integer.parseInt(request.getParameter("id").trim());
+            String nombre = request.getParameter("nombre").trim();
+            int ciudad = Integer.parseInt(request.getParameter("ciudad").trim());
+            int capacidad = Integer.parseInt(request.getParameter("capacidad").trim());
+           
+            if(id<1 || nombre.equals("") || ciudad<1 || capacidad<1){
+                response.sendRedirect("modestadio.jsp?msj=Valores incompletos");
+            }else{
+                EstadioDAO es = new EstadioDAO();
+                CiudadDAO ci = new CiudadDAO();
+                Estadio e = new Estadio(id,nombre,ci.obtenerCiudad(ciudad),capacidad);
+                
+                if(es.obtenerEstadio(e.getId())==null){
+                    int respuesta = es.registrar(e);
+                    if(respuesta==1){
+                    response.sendRedirect("modestadio.jsp?msj=Estadio registrado");
+                    }else{
+                    response.sendRedirect("modestadio.jsp?msj=Estadio no se pudo registrar");
+                    }
+                }else{
+                    response.sendRedirect("modestadio.jsp?msj=Estadio ya existe");
+                }
+            }
+           }catch(Exception e){
+               response.sendRedirect("modestadio.jsp?msj="+e.getMessage());
+           }
+    }
+    private void modificar(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        try{
+            int id = Integer.parseInt(request.getParameter("id").trim());
+            String nombre = request.getParameter("nombre").trim();
+            int ciudad = Integer.parseInt(request.getParameter("ciudad").trim());
+            int capacidad = Integer.parseInt(request.getParameter("capacidad").trim());
+            
+            if(id<1 || nombre.equals("") || ciudad<1 || capacidad<1){
+                response.sendRedirect("modestadio.jsp?msj=Valores erroneos");
+            }else{
+                EstadioDAO es = new EstadioDAO();
+                CiudadDAO ci = new CiudadDAO();
+                Estadio e = new Estadio(id,nombre,ci.obtenerCiudad(ciudad),capacidad);
+                
+                if(es.obtenerEstadio(e.getId())==null){
+                    response.sendRedirect("modestadio.jsp?msj=Estadio no existe");
+                }else{
+                   int respuesta = es.modificar(e);
+                   if(respuesta>0){
+                       response.sendRedirect("modestadio.jsp?msj=Estadio modificado");
+                   }else{
+                       response.sendRedirect("modestadio.jsp?msj=Estadio no se pudo modificar");
+                   }
+                }
+            }
+         }catch(Exception e){
+             response.sendRedirect("modestadio.jsp?msj="+e.getMessage());
+         }
+    }
+    private void eliminar(HttpServletRequest request, HttpServletResponse response) throws IOException{
+         try{
+            int id = Integer.parseInt(request.getParameter("id").trim());
+            String nombre = request.getParameter("nombre").trim();
+            int ciudad = Integer.parseInt(request.getParameter("ciudad").trim());
+            int capacidad = Integer.parseInt(request.getParameter("capacidad").trim());
+            
+            if(id<1 || nombre.equals("") || ciudad<1 || capacidad<1){
+                response.sendRedirect("delestadio.jsp?msj=Opcion no valida");
+            }else{
+                EstadioDAO es = new EstadioDAO();
+                CiudadDAO ci = new CiudadDAO();
+                Estadio e = new Estadio(id,nombre,ci.obtenerCiudad(ciudad),capacidad);
+                
+                if(es.obtenerEstadio(e.getId())!=null){
+                    EquipoDAO eq = new EquipoDAO();
+                    if(eq.existeEstadio(e)){
+                        response.sendRedirect("delestadio.jsp?msj=No se puede eliminar por tener equipos");
+                    }else{
+                    int respuesta = es.eliminar(e);
+                    if(respuesta==1){
+                    response.sendRedirect("delestadio.jsp?msj=Estadio eliminado");
+                    }else{
+                    response.sendRedirect("delestadio.jsp?msj=Estadio no se pudo eliminar");
+                    }}
+                }else{
+                    response.sendRedirect("delestadio.jsp?msj=Estadio no existe");
+                }
+            }
+           }catch(Exception e){
+               response.sendRedirect("delestadio.jsp?msj="+e.getMessage());
+           }
+        }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

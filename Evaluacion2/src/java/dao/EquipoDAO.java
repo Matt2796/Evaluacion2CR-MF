@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import modelos.Division;
 import modelos.Equipo;
+import modelos.Estadio;
 
 /**
  *
@@ -136,6 +137,21 @@ public class EquipoDAO extends Conexion {
             conectar();
             PreparedStatement ps = obtenerPS(sentencia);
             ps.setInt(1, division.getId());
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        }catch(Exception e){
+            return false;
+        }finally{
+            desconectar();
+        }
+    }
+        
+        public boolean existeEstadio(Estadio estadio) throws SQLException{
+        try{
+            String sentencia = "select * from equipo where id_estadio = ?";
+            conectar();
+            PreparedStatement ps = obtenerPS(sentencia);
+            ps.setInt(1, estadio.getId());
             ResultSet rs = ps.executeQuery();
             return rs.next();
         }catch(Exception e){
