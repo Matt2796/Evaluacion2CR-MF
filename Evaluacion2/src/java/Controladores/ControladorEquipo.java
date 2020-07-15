@@ -85,7 +85,7 @@ public class ControladorEquipo extends HttpServlet {
                response.sendRedirect("modequipo.jsp?msj="+e.getMessage());
            }
     }
-    private void modificar(HttpServletRequest request, HttpServletResponse response){
+    private void modificar(HttpServletRequest request, HttpServletResponse response) throws IOException{
         try{
             int id = Integer.parseInt(request.getParameter("id").trim());
             String nombre = request.getParameter("nombre").trim();
@@ -114,7 +114,7 @@ public class ControladorEquipo extends HttpServlet {
                 }
             }
          }catch(Exception e){
-             
+             response.sendRedirect("modequipo.jsp?msj="+e.getMessage());
          }
     }
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws IOException{
@@ -150,7 +150,7 @@ public class ControladorEquipo extends HttpServlet {
                 }
             }
            }catch(Exception e){
-               response.sendRedirect("delEquipo.jsp?msj="+e.getMessage());
+               response.sendRedirect("delequipo.jsp?msj="+e.getMessage());
            }
         }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
