@@ -115,7 +115,24 @@ public class EstadioDAO extends Conexion {
         }finally{
             desconectar();
         }
-    }
+    
+            }
+            
+            public boolean existeCiudad(Ciudad ciudad) throws SQLException{
+        try{
+            String sentencia = "select * from estadio where id_ciudad = ?";
+            conectar();
+            PreparedStatement ps = obtenerPS(sentencia);
+            ps.setInt(1, ciudad.getId());
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        }catch(Exception e){
+            return false;
+        }finally{
+            desconectar();
+        }
+    
+            }
             
     
 }

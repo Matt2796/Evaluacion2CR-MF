@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import modelos.Division;
 import modelos.Equipo;
 
 /**
@@ -120,6 +121,21 @@ public class EquipoDAO extends Conexion {
             conectar();
             PreparedStatement ps = obtenerPS(sentencia);
             ps.setInt(1, equipo.getId());
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        }catch(Exception e){
+            return false;
+        }finally{
+            desconectar();
+        }
+    }
+        
+        public boolean existeDivision(Division division) throws SQLException{
+        try{
+            String sentencia = "select * from equipo where id_division = ?";
+            conectar();
+            PreparedStatement ps = obtenerPS(sentencia);
+            ps.setInt(1, division.getId());
             ResultSet rs = ps.executeQuery();
             return rs.next();
         }catch(Exception e){

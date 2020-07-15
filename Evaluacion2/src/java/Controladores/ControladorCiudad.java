@@ -5,6 +5,8 @@
  */
 package Controladores;
 
+import dao.CiudadDAO;
+import dao.EstadioDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelos.Ciudad;
 
 /**
  *
@@ -31,19 +34,103 @@ public class ControladorCiudad extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ControladorCiudad</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ControladorCiudad at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        if(request.getParameter("accion")!=null){
+        String accion = request.getParameter("accion");
+        switch(accion){
+            case "2": registrar(request,response);
+                break;
+            case "3": modificar(request,response);
+            break;
+            case "4": eliminar(request,response);
+            break;
         }
+         }else{
+             response.sendRedirect("ciudades.jsp?msj=Opcion no valida");
+         }
+    }
+
+    private void registrar(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        try{
+            
+            int id = Integer.parseInt(request.getParameter("id").trim());
+            String nombre = request.getParameter("nombre").trim();
+           
+            if(id<1 || nombre.equals("")){
+                response.sendRedirect("modciudad.jsp?msj=Valores no permitidos");
+            }else{
+                CiudadDAO ciu = new CiudadDAO();
+                Ciudad c = new Ciudad(id,nombre);
+                if(ciu.obtenerCiudad(c.getId())==null){
+                    int respuesta = ciu.registrar(c);
+                    if(respuesta==1){
+                    response.sendRedirect("modciudad.jsp?msj=Ciudad registrada");
+                    }else{
+                    response.sendRedirect("modciudad.jsp?msj=Ciudad no se pudo registrar");
+                    }
+                }else{
+                    response.sendRedirect("modciudad.jsp?msj=Ciudad ya existe");
+                }
+            }
+           }catch(Exception e){
+               response.sendRedirect("modciudad.jsp?msj="+e.getMessage());
+           }
+    }
+    private void modificar(HttpServletRequest request, HttpServletResponse response){
+        try{
+            int id = Integer.parseInt(request.getParameter("id").trim());
+            String nombre = request.getParameter("nombre").trim();
+            
+            if(id<1||nombre.equals("")){
+                response.sendRedirect("modciudad.jsp?msj=valores erroneos");
+            }else{
+                CiudadDAO ciu = new CiudadDAO();
+                Ciudad c = new Ciudad(id,nombre);
+                
+                if(ciu.obtenerCiudad(c.getId())==null){
+                    response.sendRedirect("modcuidad.jsp?msj=Ciudad no existe");
+                }else{
+                   int respuesta = ciu.modificar(c);
+                   if(respuesta>0){
+                       response.sendRedirect("modPosicion.jsp?msj=Ciudad modificada");
+                   }else{
+                       response.sendRedirect("modPosicion.jsp?msj=Ciudad no se pudo modificar");
+                   }
+                }
+            }
+         }catch(Exception e){
+             
+         }
+    }
+    private void eliminar(HttpServletRequest request, HttpServletResponse response) throws IOException{
+         try{
+            int id =Integer.parseInt(request.getParameter("id").trim());
+            String nombre = request.getParameter("nombre").trim();
+           
+            if(nombre.equals("")||id<1){
+                response.sendRedirect("delciudad.jsp?msj=Opcion no valida");
+            }else{
+                CiudadDAO ciu = new CiudadDAO();
+                Ciudad c = new Ciudad(id,nombre);
+
+                if(ciu.obtenerCiudad(c.getId())!=null){
+                    EstadioDAO es = new EstadioDAO();
+                    
+                    if(es.existeCiudad(c)){
+                        response.sendRedirect("delciudad.jsp?msj=No se puede eliminar la ciudad por tener estadio");
+                    }else{
+                    int respuesta = ciu.eliminar(c);
+                    if(respuesta==1){
+                    response.sendRedirect("delciudad.jsp?msj=Ciudad eliminada");
+                    }else{
+                    response.sendRedirect("delciudad.jsp?msj=Ciudad no se pudo eliminar");
+                    }}
+                }else{
+                    response.sendRedirect("delciudad.jsp?msj=Ciudad no existe");
+                }
+            }
+           }catch(Exception e){
+               response.sendRedirect("delposicion.jsp?msj="+e.getMessage());
+           }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
