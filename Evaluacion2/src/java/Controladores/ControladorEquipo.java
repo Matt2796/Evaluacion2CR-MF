@@ -42,10 +42,10 @@ public class ControladorEquipo extends HttpServlet {
         switch(accion){
             case "2": registrar(request,response);
                 break;
-            /*case "3": modificar(request,response);
+            case "3": modificar(request,response);
             break;
             case "4": eliminar(request,response);
-            break;*/
+            break;
         }
          }else{
              response.sendRedirect("equipos.jsp?msj=Opcion no valida");
