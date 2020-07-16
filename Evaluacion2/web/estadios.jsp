@@ -71,7 +71,7 @@
                 </tr>
                 <tr>
                     <td>Capacidad</td>
-                    <td><input type="number" name="capacidad"/></td>
+                    <td><input type="number" name="capacidad" value="0"/></td>
                 </tr>
                 <tr>
                     <td><input type="reset" value="Limpiar"/></td>
