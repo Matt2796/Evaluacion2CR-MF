@@ -65,7 +65,7 @@ public class EstadioDAO extends Conexion {
     
         public Estadio obtenerEstadio(int id) throws SQLException{
         try{
-            String sentencia = "select * from v_estadio where codigo = ?";
+            String sentencia = "select * from v_estadios where codigo = ?";
             conectar();
             PreparedStatement ps = obtenerPS(sentencia);
             ps.setInt(1, id);

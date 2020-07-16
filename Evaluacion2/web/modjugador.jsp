@@ -59,7 +59,7 @@
             <table>
                 <tr>
                     <td>Id</td>
-                    <td><input type="number" name="id" readonly="true" value="<%= j.getId() %>" readonly="true"/></td>
+                    <td><input type="number" name="id" readonly="true" value="<%= j.getId() %>"/></td>
                 </tr>
                 <tr>
                     <td>Nombre</td>
