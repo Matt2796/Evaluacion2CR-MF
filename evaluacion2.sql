@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-07-2020 a las 01:01:20
+-- Tiempo de generación: 16-07-2020 a las 02:18:46
 -- Versión del servidor: 10.4.13-MariaDB
 -- Versión de PHP: 7.4.7
 
@@ -79,7 +79,7 @@ CREATE TABLE `estadio` (
 CREATE TABLE `jugador` (
   `id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
-  `apellido` int(50) NOT NULL,
+  `apellido` varchar(50) NOT NULL,
   `fecha_nacimiento` date NOT NULL,
   `id_posicion` int(11) NOT NULL,
   `sueldo` int(11) NOT NULL,
@@ -104,7 +104,7 @@ CREATE TABLE `posicion` (
 --
 
 CREATE TABLE `usuario` (
-  `id` int(11) NOT NULL,
+  `id` varchar(50) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `apellido` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL
@@ -170,25 +170,25 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `ciudad`
 --
 ALTER TABLE `ciudad`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `division`
 --
 ALTER TABLE `division`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `equipo`
 --
 ALTER TABLE `equipo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `estadio`
 --
 ALTER TABLE `estadio`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `jugador`
@@ -200,7 +200,7 @@ ALTER TABLE `jugador`
 -- AUTO_INCREMENT de la tabla `posicion`
 --
 ALTER TABLE `posicion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
