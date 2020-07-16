@@ -19,7 +19,7 @@
     </head>
     <body>
             <center>
-        <h1>Modificar estadio</h1>
+        <h1>Eliminar estadio</h1>
             <% if(session.getAttribute("usuario")!= null){
              Usuario u = (Usuario) session.getAttribute("usuario");
             %>
@@ -87,10 +87,13 @@
                 <input type="hidden" name="accion" value="4"/>
                 </tr>
             </table>
+                
         </form>
+                
                         <% if(request.getParameter("msj")!= null){%>
         <h4><%= request.getParameter("msj") %></h4>
         <%}%>
             </center>
     </body>
+    <%}%>
 </html>

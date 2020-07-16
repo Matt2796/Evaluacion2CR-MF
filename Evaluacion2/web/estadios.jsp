@@ -62,8 +62,8 @@
                     <td>
                         <select name="ciudad">
                             <option value="0">Seleccione</option>
-                            <% ArrayList<Ciudad> ciudads = new CiudadDAO().obtenerCiudades(); 
-                            for(Ciudad c:ciudads){%>
+                            <% ArrayList<Ciudad> ciudad = new CiudadDAO().obtenerCiudades(); 
+                            for(Ciudad c:ciudad){%>
                             <option value="<%= c.getId() %>"><%= c.getNombre()  %></option>
                             <% } %>
                         </select>

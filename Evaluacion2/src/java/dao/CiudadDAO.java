@@ -82,11 +82,11 @@ public class CiudadDAO extends Conexion {
             conectar();
             PreparedStatement ps = obtenerPS(sentencia);
             ResultSet rs = ps.executeQuery();
-            ArrayList<Ciudad> lista = new ArrayList();
+            ArrayList<Ciudad> ciudad = new ArrayList();
             while(rs.next()){
-                lista.add(new Ciudad(rs.getInt("id"),rs.getString("nombre")));
+                ciudad.add(new Ciudad(rs.getInt("id"),rs.getString("nombre")));
             }
-            return lista;
+            return ciudad;
         }catch(Exception e){
             return new ArrayList();
         }finally{

@@ -21,7 +21,7 @@ public class EquipoDAO extends Conexion {
           
     public int registrar(Equipo eq) throws SQLException{
         try{
-            String sentencia ="Insert into equipo (nombre, id_ciudad, id_estadio, id_division) values (?,?,?,?)";
+            String sentencia ="Insert into equipo (nombre, id_ciudad, id_estadio, id_division) values (?, ?, ?, ?)";
             conectar();
             PreparedStatement ps = obtenerPS(sentencia);
             ps.setString(1, eq.getNombre());

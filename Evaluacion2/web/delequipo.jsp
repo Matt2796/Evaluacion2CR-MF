@@ -23,10 +23,7 @@
     <body>
             <center>
         <h1>Eliminar equipo</h1>
-<% if(session.getAttribute("usuario")==null){
-            response.sendRedirect("index.jsp?msj=No te pases");
-        }else{if(request.getParameter("id")!=null){
-            Equipo eq = new EquipoDAO().obtenerEquipo(Integer.parseInt(request.getParameter("id")));
+<%            Equipo eq = new EquipoDAO().obtenerEquipo(Integer.parseInt(request.getParameter("id")));
             %>
         
         <a href="Salir"><input type="button" value="Cerrar Sesion"/></a>
